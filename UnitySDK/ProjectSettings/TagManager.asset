@@ -29,6 +29,8 @@ TagManager:
   - symbol_O_Goal
   - purpleAgent
   - purpleGoal
+  - Walls
+  - Target
   layers:
   - Default
   - TransparentFX
@@ -44,7 +46,7 @@ TagManager:
   - goalie
   - strikerWall
   - striker
-  - 
+  - Walls
   - 
   - 
   - 
