@@ -47,7 +47,8 @@ public class RollerAgent : Agent
     {
         if(vectorAction[1] == 0.0f)
             velocity *= drag;
-        if (vectorAction[1] < 0.0f) vectorAction[1] = 0.0f;
+        if (vectorAction[1] < 0.0f) 
+            vectorAction[1] = 0.0f;
         velocity += vectorAction[1]*acc;
         velocity = velocity > maxspeed ? maxspeed : velocity;
         //velocity = velocity < -maxspeed ? -maxspeed : velocity;
@@ -59,7 +60,7 @@ public class RollerAgent : Agent
 //                 back = true;
 //             }
 //         }
-        else back = false;
+/*        else back = false;*/
         rBody.position += velocity* rBody.transform.forward;
         rBody.rotation *= Quaternion.AngleAxis(vectorAction[0], Vector3.up);
 
