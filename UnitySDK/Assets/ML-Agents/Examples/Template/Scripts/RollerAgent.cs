@@ -45,10 +45,10 @@ public class RollerAgent : Agent
 
     public override void AgentAction(float[] vectorAction)
     {
-        if(vectorAction[1] == 0.0f)
-            velocity *= drag;
         if (vectorAction[1] < 0.0f) 
             vectorAction[1] = 0.0f;
+        if (vectorAction[1] == 0.0f)
+            velocity *= drag;
         velocity += vectorAction[1]*acc;
         velocity = velocity > maxspeed ? maxspeed : velocity;
         //velocity = velocity < -maxspeed ? -maxspeed : velocity;
