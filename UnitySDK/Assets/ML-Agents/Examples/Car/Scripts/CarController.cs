@@ -30,6 +30,7 @@ public class CarController : MonoBehaviour
     {
         speed += speed * acceleration;
         speed = speed > maxSpeed ? maxSpeed : speed;
+        speed = speed < 0.0f ? 0.0f : speed;
 
         m_Rigidbody.position += speed * transform.forward;
         m_Rigidbody.rotation *= Quaternion.AngleAxis(steering, Vector3.up);

@@ -5,7 +5,7 @@ public class CarAgent : Agent
 {
     public TrackManager track;
     public CarController ctrl;
-    public float raycastDistance = 4;
+    public float raycastDistance = 10;
     public Transform[] raycasts;
 
     public float accel;
@@ -16,12 +16,15 @@ public class CarAgent : Agent
 
     public float rewardOnCheckpoint = 1;
 
+    float time;
+
     private void Awake()
     {
         track = FindObjectOfType<TrackManager>();
         ctrl = GetComponent<CarController>();
         startingPos = transform.position;
         startingRot = transform.rotation;
+        time = Time.time;
     }
 
     public override void AgentReset()
@@ -30,6 +33,7 @@ public class CarAgent : Agent
         ctrl.transform.rotation = startingRot;
         track.Reset();
         ctrl.Reset();
+        time = Time.time;
     }
 
     public void OnReachCheckpoint()
@@ -37,11 +41,24 @@ public class CarAgent : Agent
         AddReward(rewardOnCheckpoint);
     }
 
+    public void OnReachFinal()
+    {
+        float fTime = Time.time-time;
+        fTime = 1 / fTime;
+        Debug.Log("hh"+fTime);
+        AddReward(fTime*1000);
+    }
+
     public override void AgentAction(float[] vectorAction)
     {
         accel = vectorAction[0];
-        accel = Mathf.Clamp(accel, 0, 1);
-        if (accel > 0) accel = 1;
+        if (accel <= 0.0f)
+            accel = -0.025f;
+        else
+        {
+            accel = Mathf.Clamp(accel, 0, 1);
+            if (accel > 0) accel = 1;
+        }
         steering = vectorAction[1];
 
         AddReward(ctrl.LocalSpeed * .001f);
@@ -70,6 +87,7 @@ public class CarAgent : Agent
 
         if (distance < 1f)
         {
+            //AddReward(-1.0f);
             Done();
             AgentReset();
         } 

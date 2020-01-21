@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 import "mlagents/envs/communicator_objects/brain_parameters.proto";
+import "mlagents/envs/communicator_objects/environment_parameters.proto";
 
 option csharp_namespace = "MLAgents.CommunicatorObjects";
 package communicator_objects;
@@ -11,5 +12,5 @@ message UnityRLInitializationOutputProto {
     string version = 2;
     string log_path = 3;
     repeated BrainParametersProto brain_parameters = 5;
-    reserved 6; //environment parameters
+    EnvironmentParametersProto environment_parameters = 6;
 }

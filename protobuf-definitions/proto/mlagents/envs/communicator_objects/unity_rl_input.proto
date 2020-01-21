@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 import "mlagents/envs/communicator_objects/agent_action.proto";
+import "mlagents/envs/communicator_objects/environment_parameters.proto";
 import "mlagents/envs/communicator_objects/command.proto";
 
 option csharp_namespace = "MLAgents.CommunicatorObjects";
@@ -11,8 +12,7 @@ message UnityRLInputProto {
             repeated AgentActionProto value = 1;
         }
     map<string, ListAgentActionProto> agent_actions = 1;
-    reserved 2; //deprecated environment proto
-    reserved 3; //deprecated is_trainig
+    EnvironmentParametersProto environment_parameters = 2;
+    bool is_training = 3;
     CommandProto command = 4;
-    bytes side_channel = 5;
 }

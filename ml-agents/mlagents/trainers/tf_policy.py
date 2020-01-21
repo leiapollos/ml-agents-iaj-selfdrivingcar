@@ -5,12 +5,12 @@ import numpy as np
 from mlagents.tf_utils import tf
 
 from mlagents.envs.exception import UnityException
-from mlagents.trainers.policy import Policy
-from mlagents.trainers.action_info import ActionInfo
+from mlagents.envs.policy import Policy
+from mlagents.envs.action_info import ActionInfo
 from tensorflow.python.platform import gfile
 from tensorflow.python.framework import graph_util
 from mlagents.trainers import tensorflow_to_barracuda as tf2bc
-from mlagents.trainers.brain import BrainInfo
+from mlagents.envs.brain import BrainInfo
 
 
 logger = logging.getLogger("mlagents.trainers")
@@ -178,7 +178,7 @@ class TFPolicy(Policy):
         :param num_agents: Number of agents.
         :return: Numpy array of zeros.
         """
-        return np.zeros((num_agents, self.m_size), dtype=np.float32)
+        return np.zeros((num_agents, self.m_size), dtype=np.float)
 
     def save_memories(
         self, agent_ids: List[str], memory_matrix: Optional[np.ndarray]
@@ -189,7 +189,7 @@ class TFPolicy(Policy):
             self.memory_dict[agent_id] = memory_matrix[index, :]
 
     def retrieve_memories(self, agent_ids: List[str]) -> np.ndarray:
-        memory_matrix = np.zeros((len(agent_ids), self.m_size), dtype=np.float32)
+        memory_matrix = np.zeros((len(agent_ids), self.m_size), dtype=np.float)
         for index, agent_id in enumerate(agent_ids):
             if agent_id in self.memory_dict:
                 memory_matrix[index, :] = self.memory_dict[agent_id]

@@ -10,10 +10,12 @@ logger = logging.getLogger("mlagents.trainers")
 
 
 class Curriculum(object):
-    def __init__(self, location):
+    def __init__(self, location, default_reset_parameters):
         """
         Initializes a Curriculum object.
         :param location: Path to JSON defining curriculum.
+        :param default_reset_parameters: Set of reset parameters for
+               environment.
         """
         self.max_lesson_num = 0
         self.measure = None
@@ -42,6 +44,11 @@ class Curriculum(object):
 
         parameters = self.data["parameters"]
         for key in parameters:
+            if key not in default_reset_parameters:
+                raise CurriculumConfigError(
+                    "The parameter {0} in Curriculum {1} is not present in "
+                    "the Environment".format(key, location)
+                )
             if len(parameters[key]) != self.max_lesson_num + 1:
                 raise CurriculumConfigError(
                     "The parameter {0} in Curriculum {1} must have {2} values "

@@ -29,8 +29,9 @@ TagManager:
   - symbol_O_Goal
   - purpleAgent
   - purpleGoal
-  - Walls
-  - Target
+  - Checkpoint
+  - Car
+  - Final
   layers:
   - Default
   - TransparentFX
@@ -46,7 +47,7 @@ TagManager:
   - goalie
   - strikerWall
   - striker
-  - Walls
+  - 
   - 
   - 
   - 

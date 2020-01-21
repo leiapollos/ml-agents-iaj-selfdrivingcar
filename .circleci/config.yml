@@ -21,10 +21,6 @@ jobs:
     executor: << parameters.executor >>
     working_directory: ~/repo
 
-    # Run additional numpy checks on unit tests
-    environment:
-      TEST_ENFORCE_NUMPY_FLOAT32: 1
-
     steps:
       - checkout
 
